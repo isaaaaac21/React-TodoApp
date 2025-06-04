@@ -1,0 +1,10 @@
+.texts {
+  text-align: left;
+}
+.icons {
+  background-color: white !important;
+  outline: 1px;
+}
+.icons:hover {
+  background-color: white !important;
+}
