@@ -7,10 +7,11 @@ import { theme } from "./contexts/ThemeContext";
 import { Container } from "@mui/material";
 import { Task } from "./components/Todo-app/Task/Task";
 import { NewTask } from "./components/Todo-app/NewTask/NewTask";
-import { Tasks } from "./components/Todo-app/Tasks";
+import { Tasks } from "./components/Todo-app/tasks/Tasks";
 import { TasksContext } from "./contexts/TasksList";
+import { FilterTasks } from "./components/Todo-app/FilterTasks";
+
 function App() {
-  const [count, setCount] = useState(0);
   const tasks = [
     {
       id: 1,
@@ -52,7 +53,7 @@ function App() {
       <ThemeProvider theme={theme}>
         <Container>
           <h1>My Tasks</h1>
-          <Tasks />
+          <FilterTasks />
           <NewTask />
         </Container>
       </ThemeProvider>

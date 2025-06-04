@@ -8,3 +8,11 @@
 .icons:hover {
   background-color: white !important;
 }
+
+.done {
+  background-color: #80e27e !important;
+}
+
+.done > * {
+  color: white !important;
+}
