@@ -2,6 +2,7 @@ import { FilterContext } from "../../../contexts/FilterContext";
 import { TasksContext } from "../../../contexts/TasksList";
 import { Task } from "../Task/Task";
 import { useContext } from "react";
+import { NewTask } from "../NewTask/NewTask";
 
 export function Tasks() {
   const { myTasksArr } = useContext(TasksContext);
@@ -23,5 +24,21 @@ export function Tasks() {
     </li>
   ));
 
-  return <ul style={{ margin: "30px auto" }}>{myUlTasks}</ul>;
+  return (
+    <>
+      <ul
+        className="tasks-list"
+        style={{
+          margin: "30px auto",
+          maxHeight: "250px",
+          minHeight: "250px",
+          overflowY: "scroll",
+          maxWidth: "500px",
+        }}
+      >
+        {myUlTasks}
+      </ul>
+      <NewTask></NewTask>
+    </>
+  );
 }

@@ -1,7 +1,6 @@
-import { useState, useContext } from "react";
+import { useContext } from "react";
 import ToggleButton from "@mui/material/ToggleButton";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
-import { TasksContext } from "../../contexts/TasksList";
 import { FilterContext } from "../../contexts/FilterContext";
 
 export default function ToggleButtons() {
@@ -17,14 +16,19 @@ export default function ToggleButtons() {
       exclusive
       onChange={(e) => handleFilterChange(e)}
       aria-label="text alignment"
+      sx={{ mt: 2.5 }} // This is equivalent to marginTop: 2 * 8px = 16px
     >
-      <ToggleButton value="All" aria-label="left aligned">
+      <ToggleButton size="small" value="All" aria-label="left aligned">
         All
       </ToggleButton>
-      <ToggleButton value="Completed" aria-label="centered">
+      <ToggleButton size="small" value="Completed" aria-label="centered">
         Completed
       </ToggleButton>
-      <ToggleButton value="Not Completed" aria-label="right aligned">
+      <ToggleButton
+        size="small"
+        value="Not Completed"
+        aria-label="right aligned"
+      >
         Not Completed
       </ToggleButton>
     </ToggleButtonGroup>

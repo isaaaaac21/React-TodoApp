@@ -1,10 +1,10 @@
-import * as React from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { useState, useContext } from "react";
-import { useTheme } from "@mui/material/styles"; // Changed this line
 import { TasksContext } from "../../../contexts/TasksList";
+
+import { v4 as uuidv4 } from "uuid";
 
 export function NewTask() {
   const [taskName, setTaskName] = useState("");
@@ -14,42 +14,38 @@ export function NewTask() {
     myTasksArr.length === 0 ? 1 : myTasksArr[myTasksArr.length - 1].id + 1;
 
   function handleAddClick() {
-    setMyTasksArr((prev) => [
-      ...prev,
-      { id: newTaksId, title: taskName, details: "", isDone: false },
-    ]);
-    setTaskName("");
+    if (taskName.trim() !== "") {
+      setMyTasksArr((prev) => [
+        ...prev,
+        { id: newTaksId, title: taskName, details: "", isDone: false },
+      ]);
+      setTaskName("");
+    }
   }
-
+  console.log(typeof uuidv4());
   return (
     <Box
-      component="form"
       sx={{
-        "& > :not(style)": { m: 1, width: "25ch" },
         display: "flex",
-        alignItems: "center",
-        gap: "5px",
+        gap: 2,
+        width: "100%",
+        maxWidth: "500px",
+        margin: "0 auto",
       }}
-      noValidate
-      autoComplete="off"
     >
       <TextField
         id="outlined-required"
-        label="Task Title"
-        sx={{ flex: "2", margin: "0px !important" }}
+        placeholder="Task Title"
+        sx={{ flex: 2 }}
+        size="small"
         value={taskName}
         onChange={(e) => setTaskName(e.target.value)}
       />
       <Button
         variant="contained"
-        sx={{
-          height: "56px",
-          width: "fit-content",
-          flex: "1",
-          margin: "0px !important",
-          outline: "none !important",
-        }}
+        sx={{ flex: 1 }}
         onClick={handleAddClick}
+        disabled={taskName.trim() === ""}
       >
         Add
       </Button>

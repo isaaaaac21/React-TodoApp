@@ -4,9 +4,10 @@
 .icons {
   background-color: white !important;
   outline: 1px;
+  transition: 0.3s;
 }
-.icons:hover {
-  background-color: white !important;
+.icons.hover:hover {
+  background-color: rgb(216, 216, 216) !important;
 }
 
 .done {
@@ -15,4 +16,17 @@
 
 .done > * {
   color: white !important;
+}
+.task:hover {
+  transform: scaleY(1);
+}
+
+@media (max-width: 767px) {
+  .task {
+    flex-direction: column;
+  }
+  .task .texts {
+    text-align: center;
+    margin-bottom: 10px;
+  }
 }

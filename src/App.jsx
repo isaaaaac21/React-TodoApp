@@ -1,6 +1,4 @@
 import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
 import "./App.css";
 import { ThemeProvider } from "@mui/material/styles"; // Changed this line
 import { theme } from "./contexts/ThemeContext";
@@ -9,7 +7,7 @@ import { Task } from "./components/Todo-app/Task/Task";
 import { NewTask } from "./components/Todo-app/NewTask/NewTask";
 import { Tasks } from "./components/Todo-app/tasks/Tasks";
 import { TasksContext } from "./contexts/TasksList";
-import { FilterTasks } from "./components/Todo-app/FilterTasks";
+import { TodoList } from "./components/Todo-app/TodoList";
 
 function App() {
   const tasks = [
@@ -51,11 +49,7 @@ function App() {
   return (
     <TasksContext.Provider value={{ myTasksArr, setMyTasksArr }}>
       <ThemeProvider theme={theme}>
-        <Container>
-          <h1>My Tasks</h1>
-          <FilterTasks />
-          <NewTask />
-        </Container>
+        <TodoList />
       </ThemeProvider>
     </TasksContext.Provider>
   );
