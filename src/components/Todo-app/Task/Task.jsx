@@ -9,20 +9,23 @@ import { useTheme } from "@emotion/react";
 import "./task.css";
 import { useContext, useState } from "react";
 import { TasksContext } from "../../../contexts/TasksList";
-import EditTask from "../Edit pop-up/EditTask";
+import EditTask from "../../pop-ups/Edit pop-up/EditTask";
+import DeleteTask from "../../pop-ups/delete pop-up/DeleteTask";
+
 export function Task({ task }) {
   const theme = useTheme();
   const { myTasksArr, setMyTasksArr } = useContext(TasksContext);
   const [showEdit, setShowEdit] = useState(false);
+  const [showDelete, setShowDelete] = useState(false);
 
   //This works and now I need to make it using popUp
-  function handleEdit(tit, det, passedTask) {
+  function handleEdit(editedTask) {
     const newArr = myTasksArr.map((currTask) => {
-      if (currTask.id === passedTask.id) {
+      if (currTask.id === task.id) {
         return {
-          ...passedTask,
-          title: tit === "" ? passedTask.title : tit,
-          details: det,
+          ...currTask,
+          title: editedTask.title,
+          details: editedTask.details,
         };
       }
       return currTask;
@@ -34,15 +37,19 @@ export function Task({ task }) {
   function toggleEditPopUp() {
     setShowEdit((prev) => !prev);
   }
+  function toggleDeletePopUp() {
+    setShowDelete((prev) => !prev);
+  }
 
   function handleDeleteClick(id) {
     const newArr = myTasksArr.filter((taskFil) => taskFil.id !== id);
     setMyTasksArr(newArr);
+    toggleDeletePopUp();
   }
 
-  function handleDoneClick(id) {
+  function handleDoneClick() {
     const newTasksArr = myTasksArr.map((taskMap) => {
-      if (taskMap.id === id) {
+      if (taskMap.id === task.id) {
         return { ...taskMap, isDone: true };
       }
       return taskMap;
@@ -54,7 +61,7 @@ export function Task({ task }) {
       <Box
         className="task"
         sx={{
-          backgroundColor: theme.palette.info.main,
+          backgroundColor: theme.palette.info.dark,
           padding: "10px",
           marginBottom: "10px",
           color: "white",
@@ -78,7 +85,7 @@ export function Task({ task }) {
             <IconButton
               className={"icons" + (task.isDone ? " done" : " hover")}
               sx={{}}
-              onClick={() => handleDoneClick(task.id)}
+              onClick={() => handleDoneClick()}
               disabled={task.isDone}
             >
               <CheckOutlinedIcon color="secondary" />
@@ -94,7 +101,7 @@ export function Task({ task }) {
             <IconButton
               className={`icons ${!task.isDone ? "hover" : ""}`}
               sx={{}}
-              onClick={() => handleDeleteClick(task.id)}
+              onClick={() => toggleDeletePopUp()}
             >
               <DeleteOutlineOutlinedIcon color="primary" />
             </IconButton>
@@ -102,13 +109,16 @@ export function Task({ task }) {
         </Grid>
         {/* </Grid> */}
       </Box>
-      {showEdit && (
-        <EditTask
-          passedTask={task}
-          handleEdit={handleEdit}
-          togglePopUp={toggleEditPopUp}
-        />
-      )}
+      <EditTask
+        open={showEdit}
+        handleEdit={handleEdit}
+        togglePopUp={toggleEditPopUp}
+      />
+      <DeleteTask
+        open={showDelete}
+        handleDelete={() => handleDeleteClick(task.id)}
+        toggleDeletePopUp={toggleDeletePopUp}
+      />
     </>
   );
 }

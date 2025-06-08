@@ -17,16 +17,9 @@
 .done > * {
   color: white !important;
 }
-.task:hover {
-  transform: scaleY(1);
+.task {
+  transition: 0.3s;
 }
-
-@media (max-width: 767px) {
-  .task {
-    flex-direction: column;
-  }
-  .task .texts {
-    text-align: center;
-    margin-bottom: 10px;
-  }
+.task:hover {
+  box-shadow: 0px 2px 8px 0px black;
 }

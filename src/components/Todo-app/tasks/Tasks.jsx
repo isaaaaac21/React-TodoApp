@@ -3,7 +3,7 @@ import { TasksContext } from "../../../contexts/TasksList";
 import { Task } from "../Task/Task";
 import { useContext } from "react";
 import { NewTask } from "../NewTask/NewTask";
-
+import "./Tasks.css";
 export function Tasks() {
   const { myTasksArr } = useContext(TasksContext);
 
@@ -33,7 +33,7 @@ export function Tasks() {
           maxHeight: "250px",
           minHeight: "250px",
           overflowY: "scroll",
-          maxWidth: "500px",
+          width: "500px",
         }}
       >
         {myUlTasks}

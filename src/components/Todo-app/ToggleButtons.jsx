@@ -18,16 +18,27 @@ export default function ToggleButtons() {
       aria-label="text alignment"
       sx={{ mt: 2.5 }} // This is equivalent to marginTop: 2 * 8px = 16px
     >
-      <ToggleButton size="small" value="All" aria-label="left aligned">
+      <ToggleButton
+        size="small"
+        value="All"
+        aria-label="left aligned"
+        style={{ fontFamily: "Work-sans" }}
+      >
         All
       </ToggleButton>
-      <ToggleButton size="small" value="Completed" aria-label="centered">
+      <ToggleButton
+        size="small"
+        value="Completed"
+        aria-label="centered"
+        style={{ fontFamily: "Work-sans" }}
+      >
         Completed
       </ToggleButton>
       <ToggleButton
         size="small"
         value="Not Completed"
         aria-label="right aligned"
+        style={{ fontFamily: "Work-sans" }}
       >
         Not Completed
       </ToggleButton>
