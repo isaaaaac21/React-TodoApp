@@ -15,11 +15,13 @@ export function NewTask() {
 
   function handleAddClick() {
     if (taskName.trim() !== "") {
-      setMyTasksArr((prev) => [
-        ...prev,
+      const newArr = [
+        ...myTasksArr,
         { id: newTaksId, title: taskName, details: "", isDone: false },
-      ]);
+      ];
+      setMyTasksArr(newArr);
       setTaskName("");
+      localStorage.setItem("Todos", JSON.stringify(newArr));
     }
   }
   console.log(typeof uuidv4());

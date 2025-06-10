@@ -9,8 +9,16 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 
-export default function EditTask({ open, handleEdit, togglePopUp }) {
-  const [editedTask, setEditedTask] = useState({ title: "", details: "" });
+export default function EditTask({
+  passedTask,
+  open,
+  handleEdit,
+  togglePopUp,
+}) {
+  const [editedTask, setEditedTask] = useState({
+    title: passedTask.title,
+    details: passedTask.details,
+  });
 
   return (
     <Dialog open={open} onClose={togglePopUp} maxWidth="xs">

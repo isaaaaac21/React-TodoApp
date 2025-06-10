@@ -31,6 +31,8 @@ export function Task({ task }) {
       return currTask;
     });
     setMyTasksArr(newArr);
+    localStorage.setItem("Todos", JSON.stringify(newArr));
+
     toggleEditPopUp();
   }
 
@@ -44,17 +46,20 @@ export function Task({ task }) {
   function handleDeleteClick(id) {
     const newArr = myTasksArr.filter((taskFil) => taskFil.id !== id);
     setMyTasksArr(newArr);
+    localStorage.setItem("Todos", JSON.stringify(newArr));
+
     toggleDeletePopUp();
   }
 
   function handleDoneClick() {
-    const newTasksArr = myTasksArr.map((taskMap) => {
+    const newArr = myTasksArr.map((taskMap) => {
       if (taskMap.id === task.id) {
         return { ...taskMap, isDone: true };
       }
       return taskMap;
     });
-    setMyTasksArr(newTasksArr);
+    setMyTasksArr(newArr);
+    localStorage.setItem("Todos", JSON.stringify(newArr));
   }
   return (
     <>
@@ -110,6 +115,7 @@ export function Task({ task }) {
         {/* </Grid> */}
       </Box>
       <EditTask
+        passedTask={task}
         open={showEdit}
         handleEdit={handleEdit}
         togglePopUp={toggleEditPopUp}

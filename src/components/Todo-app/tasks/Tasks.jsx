@@ -1,22 +1,22 @@
 import { FilterContext } from "../../../contexts/FilterContext";
 import { TasksContext } from "../../../contexts/TasksList";
 import { Task } from "../Task/Task";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { NewTask } from "../NewTask/NewTask";
 import "./Tasks.css";
+
 export function Tasks() {
   const { myTasksArr } = useContext(TasksContext);
-
-  let myFinalTasksArr = [];
   const { tasksFilter } = useContext(FilterContext);
 
-  if (tasksFilter === "All") {
-    myFinalTasksArr = [...myTasksArr];
-  } else if (tasksFilter === "Completed") {
-    myFinalTasksArr = myTasksArr.filter((task) => task.isDone === true);
-  } else {
-    myFinalTasksArr = myTasksArr.filter((task) => task.isDone === false);
-  }
+  const filterMap = {
+    All: (tasks) => tasks,
+    Completed: (tasks) => tasks.filter((task) => task.isDone),
+    "Not Completed": (tasks) => tasks.filter((task) => !task.isDone),
+  };
+
+  const filterFn = filterMap[tasksFilter] || filterMap["All"];
+  const myFinalTasksArr = filterFn([...myTasksArr]);
 
   const myUlTasks = myFinalTasksArr.map((task) => (
     <li key={task.id}>

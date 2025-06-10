@@ -1,11 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./App.css";
 import { ThemeProvider } from "@mui/material/styles"; // Changed this line
 import { theme } from "./contexts/ThemeContext";
-import { Container } from "@mui/material";
-import { Task } from "./components/Todo-app/Task/Task";
-import { NewTask } from "./components/Todo-app/NewTask/NewTask";
-import { Tasks } from "./components/Todo-app/tasks/Tasks";
 import { TasksContext } from "./contexts/TasksList";
 import { TodoList } from "./components/Todo-app/TodoList";
 
@@ -46,6 +42,12 @@ function App() {
     },
   ];
   const [myTasksArr, setMyTasksArr] = useState(tasks);
+  useEffect(() => {
+    const savedTasks = JSON.parse(localStorage.getItem("Todos"));
+    if (savedTasks) {
+      setMyTasksArr(savedTasks);
+    }
+  }, []);
   return (
     <TasksContext.Provider value={{ myTasksArr, setMyTasksArr }}>
       <ThemeProvider theme={theme}>
