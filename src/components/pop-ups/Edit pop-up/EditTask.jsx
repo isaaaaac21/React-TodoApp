@@ -13,7 +13,7 @@ export default function EditTask({
   passedTask,
   open,
   handleEdit,
-  togglePopUp,
+  closeDialog,
 }) {
   const [editedTask, setEditedTask] = useState({
     title: passedTask.title,
@@ -21,7 +21,7 @@ export default function EditTask({
   });
 
   return (
-    <Dialog open={open} onClose={togglePopUp} maxWidth="xs">
+    <Dialog open={open} onClose={closeDialog} maxWidth="xs">
       <DialogTitle>Edit Task</DialogTitle>
       <DialogContent>
         <TextField
@@ -47,7 +47,7 @@ export default function EditTask({
         />
       </DialogContent>
       <DialogActions>
-        <Button onClick={togglePopUp}>Cancel</Button>
+        <Button onClick={closeDialog}>Cancel</Button>
         <Button onClick={() => handleEdit(editedTask)}>Edit</Button>
       </DialogActions>
     </Dialog>

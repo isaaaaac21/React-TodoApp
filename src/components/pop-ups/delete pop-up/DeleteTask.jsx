@@ -6,14 +6,14 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle"; // Fixed import path
 
-export default function DeleteTask({ open, handleDelete, toggleDeletePopUp }) {
+export default function DeleteTask({ open, handleDelete, closeDialog }) {
   return (
     <>
       <Dialog
         open={open}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
-        onClose={toggleDeletePopUp}
+        onClose={closeDialog}
         maxWidth="xs"
       >
         <DialogTitle id="alert-dialog-title">
@@ -26,7 +26,7 @@ export default function DeleteTask({ open, handleDelete, toggleDeletePopUp }) {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={toggleDeletePopUp} color="primary">
+          <Button onClick={closeDialog} color="primary">
             Cancel
           </Button>
           <Button onClick={handleDelete} color="error" autoFocus>

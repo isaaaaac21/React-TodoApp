@@ -7,50 +7,21 @@ import CheckOutlinedIcon from "@mui/icons-material/CheckOutlined";
 import IconButton from "@mui/material/IconButton";
 import { useTheme } from "@emotion/react";
 import "./task.css";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { TasksContext } from "../../../contexts/TasksList";
 import EditTask from "../../pop-ups/Edit pop-up/EditTask";
 import DeleteTask from "../../pop-ups/delete pop-up/DeleteTask";
 
-export function Task({ task }) {
+export function Task({ task, openDeleteDialog, openEditDialog }) {
   const theme = useTheme();
   const { myTasksArr, setMyTasksArr } = useContext(TasksContext);
-  const [showEdit, setShowEdit] = useState(false);
-  const [showDelete, setShowDelete] = useState(false);
 
-  //This works and now I need to make it using popUp
-  function handleEdit(editedTask) {
-    const newArr = myTasksArr.map((currTask) => {
-      if (currTask.id === task.id) {
-        return {
-          ...currTask,
-          title: editedTask.title,
-          details: editedTask.details,
-        };
-      }
-      return currTask;
-    });
-    setMyTasksArr(newArr);
-    localStorage.setItem("Todos", JSON.stringify(newArr));
-
-    toggleEditPopUp();
+  function handleDeleteClick() {
+    openDeleteDialog(task);
   }
-
-  function toggleEditPopUp() {
-    setShowEdit((prev) => !prev);
+  function handleEditClick() {
+    openEditDialog(task);
   }
-  function toggleDeletePopUp() {
-    setShowDelete((prev) => !prev);
-  }
-
-  function handleDeleteClick(id) {
-    const newArr = myTasksArr.filter((taskFil) => taskFil.id !== id);
-    setMyTasksArr(newArr);
-    localStorage.setItem("Todos", JSON.stringify(newArr));
-
-    toggleDeletePopUp();
-  }
-
   function handleDoneClick() {
     const newArr = myTasksArr.map((taskMap) => {
       if (taskMap.id === task.id) {
@@ -62,69 +33,61 @@ export function Task({ task }) {
     localStorage.setItem("Todos", JSON.stringify(newArr));
   }
   return (
-    <>
-      <Box
-        className="task"
-        sx={{
-          backgroundColor: theme.palette.info.dark,
-          padding: "10px",
-          marginBottom: "10px",
-          color: "white",
-        }}
+    <Box
+      className="task"
+      sx={{
+        backgroundColor: theme.palette.info.dark,
+        padding: "10px",
+        marginBottom: "10px",
+        color: "white",
+      }}
+    >
+      <Grid
+        className="grid-task"
+        container
+        spacing={2}
+        sx={{ placeItems: "center" }}
       >
-        <Grid
-          className="grid-task"
-          container
-          spacing={2}
-          sx={{ placeItems: "center" }}
-        >
-          <Grid size={7} sx={{ textAlign: "left", marginRight: 3 }}>
-            <Typography variant="h6" style={{ fontFamily: "Work-sans" }}>
-              {task.title}
-            </Typography>
-            <Typography variant="subtitle2">{task.details}</Typography>
-          </Grid>
-
-          {/* <Grid size={4}> */}
-          <Stack size={1} direction="row" spacing={2}>
-            <IconButton
-              className={"icons" + (task.isDone ? " done" : " hover")}
-              sx={{}}
-              onClick={() => handleDoneClick()}
-              disabled={task.isDone}
-            >
-              <CheckOutlinedIcon color="secondary" />
-            </IconButton>
-            <IconButton
-              className={`icons ${!task.isDone ? "hover" : ""}`}
-              sx={{}}
-              onClick={toggleEditPopUp}
-              disabled={task.isDone}
-            >
-              <EditOutlinedIcon color="info" />
-            </IconButton>
-            <IconButton
-              className={`icons ${!task.isDone ? "hover" : ""}`}
-              sx={{}}
-              onClick={() => toggleDeletePopUp()}
-            >
-              <DeleteOutlineOutlinedIcon color="primary" />
-            </IconButton>
-          </Stack>
+        <Grid size={7} sx={{ textAlign: "left", marginRight: 3 }}>
+          <Typography
+            variant="h6"
+            style={{
+              fontFamily: "Work-sans",
+              textDecoration: task.isDone ? "line-through" : "",
+            }}
+          >
+            {task.title}
+          </Typography>
+          <Typography variant="subtitle2">{task.details}</Typography>
         </Grid>
-        {/* </Grid> */}
-      </Box>
-      <EditTask
-        passedTask={task}
-        open={showEdit}
-        handleEdit={handleEdit}
-        togglePopUp={toggleEditPopUp}
-      />
-      <DeleteTask
-        open={showDelete}
-        handleDelete={() => handleDeleteClick(task.id)}
-        toggleDeletePopUp={toggleDeletePopUp}
-      />
-    </>
+
+        {/* <Grid size={4}> */}
+        <Stack size={1} direction="row" spacing={2}>
+          <IconButton
+            className={"icons" + (task.isDone ? " done" : " hover")}
+            sx={{}}
+            onClick={() => handleDoneClick()}
+            disabled={task.isDone}
+          >
+            <CheckOutlinedIcon color="secondary" />
+          </IconButton>
+          <IconButton
+            className={`icons ${!task.isDone ? "hover" : ""}`}
+            sx={{}}
+            onClick={handleEditClick}
+            disabled={task.isDone}
+          >
+            <EditOutlinedIcon color="info" />
+          </IconButton>
+          <IconButton
+            className={`icons ${!task.isDone ? "hover" : ""}`}
+            sx={{}}
+            onClick={() => handleDeleteClick()}
+          >
+            <DeleteOutlineOutlinedIcon color="primary" />
+          </IconButton>
+        </Stack>
+      </Grid>
+    </Box>
   );
 }
