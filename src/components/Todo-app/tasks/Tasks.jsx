@@ -1,7 +1,7 @@
 import { FilterContext } from "../../../contexts/FilterContext";
 import { TasksContext } from "../../../contexts/TasksList";
 import { Task } from "../Task/Task";
-import { useContext, useEffect } from "react";
+import { useContext, useMemo } from "react";
 import { NewTask } from "../NewTask/NewTask";
 import "./Tasks.css";
 
@@ -15,14 +15,18 @@ export function Tasks() {
     "Not Completed": (tasks) => tasks.filter((task) => !task.isDone),
   };
 
-  const filterFn = filterMap[tasksFilter] || filterMap["All"];
-  const myFinalTasksArr = filterFn([...myTasksArr]);
+  const myFinalTasksArr = useMemo(() => {
+    const filterFn = filterMap[tasksFilter] || filterMap["All"];
+    return filterFn([...myTasksArr]);
+  }, [myTasksArr, tasksFilter]);
 
-  const myUlTasks = myFinalTasksArr.map((task) => (
-    <li key={task.id}>
-      <Task task={task} />
-    </li>
-  ));
+  const myUlTasks = useMemo(() => {
+    return myFinalTasksArr.map((task) => (
+      <li key={task.id}>
+        <Task task={task} />
+      </li>
+    ));
+  }, [myFinalTasksArr]);
 
   return (
     <>
