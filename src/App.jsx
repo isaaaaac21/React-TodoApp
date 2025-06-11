@@ -5,7 +5,7 @@ import { theme } from "./contexts/ThemeContext";
 import { TasksContext } from "./contexts/TasksList";
 import { TodoList } from "./components/Todo-app/TodoList";
 import { FilterContext } from "./contexts/FilterContext";
-import { SnackBarContext } from "./contexts/SnackBarContext";
+import { SnackBarProvider } from "./contexts/SnackBarContext";
 function App() {
   const tasks = [
     {
@@ -50,14 +50,13 @@ function App() {
     }
   }, []);
   const [tasksFilter, setTasksFilter] = useState("All");
-  const [openSnackBar, setOpenSnackBar] = useState(false);
   return (
     <TasksContext.Provider value={{ myTasksArr, setMyTasksArr }}>
       <ThemeProvider theme={theme}>
         <FilterContext.Provider value={{ tasksFilter, setTasksFilter }}>
-          <SnackBarContext.Provider value={{ openSnackBar, setOpenSnackBar }}>
+          <SnackBarProvider>
             <TodoList />
-          </SnackBarContext.Provider>
+          </SnackBarProvider>
         </FilterContext.Provider>
       </ThemeProvider>
     </TasksContext.Provider>

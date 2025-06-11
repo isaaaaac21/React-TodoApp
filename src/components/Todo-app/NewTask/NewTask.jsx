@@ -10,7 +10,7 @@ import { SnackBarContext } from "../../../contexts/SnackBarContext";
 export function NewTask() {
   const [taskName, setTaskName] = useState("");
   const { myTasksArr, setMyTasksArr } = useContext(TasksContext);
-  const { setOpenSnackBar } = useContext(SnackBarContext);
+  const { showHideSnackBar } = useContext(SnackBarContext);
 
   const newTaksId =
     myTasksArr.length === 0 ? 1 : myTasksArr[myTasksArr.length - 1].id + 1;
@@ -24,7 +24,7 @@ export function NewTask() {
       setMyTasksArr(newArr);
       setTaskName("");
       localStorage.setItem("Todos", JSON.stringify(newArr));
-      setOpenSnackBar(true);
+      showHideSnackBar("Task has been added");
     }
   }
   console.log(typeof uuidv4());

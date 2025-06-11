@@ -15,7 +15,7 @@ export function Tasks() {
   const [dialogTask, setDialogTask] = useState(null);
   const [showEdit, setShowEdit] = useState(false);
 
-  const { setOpenSnackBar } = useContext(SnackBarContext);
+  const { showHideSnackBar } = useContext(SnackBarContext);
 
   //this will be triggered by the button inside tasks (the openEdit as well with edit button)
   function openDeleteDialog(task) {
@@ -28,7 +28,7 @@ export function Tasks() {
     localStorage.setItem("Todos", JSON.stringify(newArr));
 
     setShowDelete(false);
-    setOpenSnackBar(true);
+    showHideSnackBar("Task has been Deleted");
   }
 
   function openEditDialog(task) {
@@ -50,7 +50,7 @@ export function Tasks() {
     localStorage.setItem("Todos", JSON.stringify(newArr));
 
     setShowEdit(false);
-    setOpenSnackBar(true);
+    showHideSnackBar("Task has been edited");
   }
   //filtering logic
   const filterMap = {
