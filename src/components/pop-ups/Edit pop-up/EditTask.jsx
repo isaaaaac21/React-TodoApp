@@ -2,12 +2,13 @@ import * as React from "react";
 import Box from "@mui/material/Box";
 import { Button, Stack, TextField } from "@mui/material";
 import "./edit.css";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
+import { SnackBarContext } from "../../../contexts/SnackBarContext";
 
 export default function EditTask({
   passedTask,
@@ -19,7 +20,6 @@ export default function EditTask({
     title: passedTask.title,
     details: passedTask.details,
   });
-
   return (
     <Dialog open={open} onClose={closeDialog} maxWidth="xs">
       <DialogTitle>Edit Task</DialogTitle>
@@ -48,7 +48,17 @@ export default function EditTask({
       </DialogContent>
       <DialogActions>
         <Button onClick={closeDialog}>Cancel</Button>
-        <Button onClick={() => handleEdit(editedTask)}>Edit</Button>
+        <Button
+          onClick={() => {
+            handleEdit(editedTask);
+          }}
+          disabled={
+            passedTask.title === editedTask.title &&
+            passedTask.details === editedTask.details
+          }
+        >
+          Edit
+        </Button>
       </DialogActions>
     </Dialog>
   );

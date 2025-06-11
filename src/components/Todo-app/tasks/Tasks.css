@@ -1,6 +1,7 @@
 .tasks-list {
   overflow-y: auto;
-  max-height: 400px; /* Adjust this value as needed */
+  max-height: 500px; /* Adjust this value as needed */
+  padding: 0 1rem;
 
   /* Webkit browsers (Chrome, Safari, etc.) */
   &::-webkit-scrollbar {

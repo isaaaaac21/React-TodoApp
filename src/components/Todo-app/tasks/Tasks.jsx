@@ -6,6 +6,7 @@ import { NewTask } from "../NewTask/NewTask";
 import "./Tasks.css";
 import DeleteTask from "../../pop-ups/delete pop-up/DeleteTask";
 import EditTask from "../../pop-ups/Edit pop-up/EditTask";
+import { SnackBarContext } from "../../../contexts/SnackBarContext";
 
 export function Tasks() {
   const { myTasksArr, setMyTasksArr } = useContext(TasksContext);
@@ -13,6 +14,8 @@ export function Tasks() {
   const [showDelete, setShowDelete] = useState(false);
   const [dialogTask, setDialogTask] = useState(null);
   const [showEdit, setShowEdit] = useState(false);
+
+  const { setOpenSnackBar } = useContext(SnackBarContext);
 
   //this will be triggered by the button inside tasks (the openEdit as well with edit button)
   function openDeleteDialog(task) {
@@ -25,6 +28,7 @@ export function Tasks() {
     localStorage.setItem("Todos", JSON.stringify(newArr));
 
     setShowDelete(false);
+    setOpenSnackBar(true);
   }
 
   function openEditDialog(task) {
@@ -46,6 +50,7 @@ export function Tasks() {
     localStorage.setItem("Todos", JSON.stringify(newArr));
 
     setShowEdit(false);
+    setOpenSnackBar(true);
   }
   //filtering logic
   const filterMap = {
@@ -77,15 +82,13 @@ export function Tasks() {
         className="tasks-list"
         style={{
           margin: "30px auto",
-          maxHeight: "250px",
-          minHeight: "250px",
+          height: "350px",
           overflowY: "scroll",
           width: "500px",
         }}
       >
         {myUlTasks}
       </ul>
-      <NewTask></NewTask>
       <DeleteTask
         open={showDelete}
         handleDelete={handleDeleteclick}
