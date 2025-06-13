@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useReducer } from "react";
 import "./App.css";
 import { ThemeProvider } from "@mui/material/styles"; // Changed this line
 import { theme } from "./contexts/ThemeContext";
@@ -6,6 +6,8 @@ import { TasksContext } from "./contexts/TasksList";
 import { TodoList } from "./components/Todo-app/TodoList";
 import { FilterContext } from "./contexts/FilterContext";
 import { SnackBarProvider } from "./contexts/SnackBarContext";
+import { todoReducer } from "./reducers/todoReducer";
+import { DispatchContext } from "./contexts/dispatchReducerContext";
 function App() {
   const tasks = [
     {
@@ -42,7 +44,7 @@ function App() {
       isDone: false,
     },
   ];
-  const [myTasksArr, setMyTasksArr] = useState(tasks);
+  const [myTasksArr, dispatch] = useReducer(todoReducer, tasks);
   useEffect(() => {
     const savedTasks = JSON.parse(localStorage.getItem("Todos"));
     if (savedTasks) {
@@ -51,7 +53,7 @@ function App() {
   }, []);
   const [tasksFilter, setTasksFilter] = useState("All");
   return (
-    <TasksContext.Provider value={{ myTasksArr, setMyTasksArr }}>
+    <DispatchContext.Provider value={{ dispatch }}>
       <ThemeProvider theme={theme}>
         <FilterContext.Provider value={{ tasksFilter, setTasksFilter }}>
           <SnackBarProvider>
@@ -59,7 +61,7 @@ function App() {
           </SnackBarProvider>
         </FilterContext.Provider>
       </ThemeProvider>
-    </TasksContext.Provider>
+    </DispatchContext.Provider>
   );
 }
 

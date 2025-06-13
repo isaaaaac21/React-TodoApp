@@ -6,28 +6,26 @@ import { TasksContext } from "../../../contexts/TasksList";
 
 import { v4 as uuidv4 } from "uuid";
 import { SnackBarContext } from "../../../contexts/SnackBarContext";
+import { DispatchContext } from "../../../contexts/dispatchReducerContext";
 
 export function NewTask() {
   const [taskName, setTaskName] = useState("");
-  const { myTasksArr, setMyTasksArr } = useContext(TasksContext);
   const { showHideSnackBar } = useContext(SnackBarContext);
 
-  const newTaksId =
-    myTasksArr.length === 0 ? 1 : myTasksArr[myTasksArr.length - 1].id + 1;
+  const { dispatch } = useContext(DispatchContext);
 
   function handleAddClick() {
     if (taskName.trim() !== "") {
-      const newArr = [
-        ...myTasksArr,
-        { id: newTaksId, title: taskName, details: "", isDone: false },
-      ];
-      setMyTasksArr(newArr);
+      dispatch({
+        type: "ADD_TODO",
+        payLoad: {
+          task: { id: uuidv4(), title: taskName, details: "", isDone: false },
+        },
+      });
       setTaskName("");
-      localStorage.setItem("Todos", JSON.stringify(newArr));
       showHideSnackBar("Task has been added");
     }
   }
-  console.log(typeof uuidv4());
   return (
     <Box
       sx={{

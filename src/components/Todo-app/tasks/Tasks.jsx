@@ -7,6 +7,7 @@ import "./Tasks.css";
 import DeleteTask from "../../pop-ups/delete pop-up/DeleteTask";
 import EditTask from "../../pop-ups/Edit pop-up/EditTask";
 import { SnackBarContext } from "../../../contexts/SnackBarContext";
+import { DispatchContext } from "../../../contexts/dispatchReducerContext";
 
 export function Tasks() {
   const { myTasksArr, setMyTasksArr } = useContext(TasksContext);
@@ -17,6 +18,7 @@ export function Tasks() {
 
   const { showHideSnackBar } = useContext(SnackBarContext);
 
+  const { dispatch } = useContext(DispatchContext);
   //this will be triggered by the button inside tasks (the openEdit as well with edit button)
   function openDeleteDialog(task) {
     setShowDelete(true);
@@ -36,19 +38,12 @@ export function Tasks() {
     setDialogTask(task);
   }
   function handleEdit(editedTask) {
-    const newArr = myTasksArr.map((currTask) => {
-      if (currTask.id === dialogTask.id) {
-        return {
-          ...currTask,
-          title: editedTask.title,
-          details: editedTask.details,
-        };
-      }
-      return currTask;
+    dispatch({
+      type: "EDIT_TODO",
+      payLoad: {
+        task: editedTask,
+      },
     });
-    setMyTasksArr(newArr);
-    localStorage.setItem("Todos", JSON.stringify(newArr));
-
     setShowEdit(false);
     showHideSnackBar("Task has been edited");
   }
