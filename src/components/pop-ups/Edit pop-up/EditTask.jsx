@@ -16,10 +16,7 @@ export default function EditTask({
   handleEdit,
   closeDialog,
 }) {
-  const [editedTask, setEditedTask] = useState({
-    title: passedTask.title,
-    details: passedTask.details,
-  });
+  const [editedTask, setEditedTask] = useState(passedTask);
   return (
     <Dialog open={open} onClose={closeDialog} maxWidth="xs">
       <DialogTitle>Edit Task</DialogTitle>

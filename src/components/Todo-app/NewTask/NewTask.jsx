@@ -6,13 +6,13 @@ import { TasksContext } from "../../../contexts/TasksList";
 
 import { v4 as uuidv4 } from "uuid";
 import { SnackBarContext } from "../../../contexts/SnackBarContext";
-import { DispatchContext } from "../../../contexts/dispatchReducerContext";
+import { ReducerContext } from "../../../contexts/ReducerContext";
 
 export function NewTask() {
   const [taskName, setTaskName] = useState("");
   const { showHideSnackBar } = useContext(SnackBarContext);
 
-  const { dispatch } = useContext(DispatchContext);
+  const { dispatch } = useContext(ReducerContext);
 
   function handleAddClick() {
     if (taskName.trim() !== "") {

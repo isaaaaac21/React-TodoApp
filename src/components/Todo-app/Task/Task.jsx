@@ -8,29 +8,25 @@ import IconButton from "@mui/material/IconButton";
 import { useTheme } from "@emotion/react";
 import "./task.css";
 import { useContext } from "react";
-import { TasksContext } from "../../../contexts/TasksList";
-import EditTask from "../../pop-ups/Edit pop-up/EditTask";
-import DeleteTask from "../../pop-ups/delete pop-up/DeleteTask";
+import { ReducerContext } from "../../../contexts/ReducerContext";
 
-export function Task({ task, openDeleteDialog, openEditDialog }) {
+export function Task({ passedTask, openDeleteDialog, openEditDialog }) {
   const theme = useTheme();
-  const { myTasksArr, setMyTasksArr } = useContext(TasksContext);
+  const { dispatch } = useContext(ReducerContext);
 
   function handleDeleteClick() {
-    openDeleteDialog(task);
+    openDeleteDialog(passedTask);
   }
   function handleEditClick() {
-    openEditDialog(task);
+    openEditDialog(passedTask);
   }
   function handleDoneClick() {
-    const newArr = myTasksArr.map((taskMap) => {
-      if (taskMap.id === task.id) {
-        return { ...taskMap, isDone: true };
-      }
-      return taskMap;
+    dispatch({
+      type: "DONE_TASK",
+      payLoad: {
+        task: passedTask,
+      },
     });
-    setMyTasksArr(newArr);
-    localStorage.setItem("Todos", JSON.stringify(newArr));
   }
   return (
     <Box
@@ -53,34 +49,34 @@ export function Task({ task, openDeleteDialog, openEditDialog }) {
             variant="h6"
             style={{
               fontFamily: "Work-sans",
-              textDecoration: task.isDone ? "line-through" : "",
+              textDecoration: passedTask.isDone ? "line-through" : "",
             }}
           >
-            {task.title}
+            {passedTask.title}
           </Typography>
-          <Typography variant="subtitle2">{task.details}</Typography>
+          <Typography variant="subtitle2">{passedTask.details}</Typography>
         </Grid>
 
         {/* <Grid size={4}> */}
         <Stack size={1} direction="row" spacing={2}>
           <IconButton
-            className={"icons" + (task.isDone ? " done" : " hover")}
+            className={"icons" + (passedTask.isDone ? " done" : " hover")}
             sx={{}}
             onClick={() => handleDoneClick()}
-            disabled={task.isDone}
+            disabled={passedTask.isDone}
           >
             <CheckOutlinedIcon color="secondary" />
           </IconButton>
           <IconButton
-            className={`icons ${!task.isDone ? "hover" : ""}`}
+            className={`icons ${!passedTask.isDone ? "hover" : ""}`}
             sx={{}}
             onClick={handleEditClick}
-            disabled={task.isDone}
+            disabled={passedTask.isDone}
           >
             <EditOutlinedIcon color="info" />
           </IconButton>
           <IconButton
-            className={`icons ${!task.isDone ? "hover" : ""}`}
+            className={`icons ${!passedTask.isDone ? "hover" : ""}`}
             sx={{}}
             onClick={() => handleDeleteClick()}
           >
