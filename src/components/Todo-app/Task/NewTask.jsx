@@ -1,31 +1,33 @@
-import Box from "@mui/material/Box";
-import TextField from "@mui/material/TextField";
-import Button from "@mui/material/Button";
+import { TextField, Button, Box } from "@mui/material";
 import { useState, useContext } from "react";
-import { TasksContext } from "../../../contexts/TasksList";
-
-import { v4 as uuidv4 } from "uuid";
+import { useTodos } from "../../../contexts/ReducerContext";
 import { SnackBarContext } from "../../../contexts/SnackBarContext";
-import { ReducerContext } from "../../../contexts/ReducerContext";
+import { v4 as uuidv4 } from "uuid";
 
 export function NewTask() {
+  const { dispatch } = useTodos();
   const [taskName, setTaskName] = useState("");
   const { showHideSnackBar } = useContext(SnackBarContext);
 
-  const { dispatch } = useContext(ReducerContext);
-
   function handleAddClick() {
     if (taskName.trim() !== "") {
+      const newTask = {
+        id: uuidv4(),
+        title: taskName,
+        details: "",
+        isDone: false,
+      };
       dispatch({
         type: "ADD_TODO",
         payLoad: {
-          task: { id: uuidv4(), title: taskName, details: "", isDone: false },
+          task: newTask,
         },
       });
       setTaskName("");
       showHideSnackBar("Task has been added");
     }
   }
+
   return (
     <Box
       sx={{

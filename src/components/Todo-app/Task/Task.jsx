@@ -7,12 +7,11 @@ import CheckOutlinedIcon from "@mui/icons-material/CheckOutlined";
 import IconButton from "@mui/material/IconButton";
 import { useTheme } from "@emotion/react";
 import "./task.css";
-import { useContext } from "react";
-import { ReducerContext } from "../../../contexts/ReducerContext";
+import { useTodos } from "../../../contexts/ReducerContext";
 
 export function Task({ passedTask, openDeleteDialog, openEditDialog }) {
   const theme = useTheme();
-  const { dispatch } = useContext(ReducerContext);
+  const { dispatch } = useTodos();
 
   function handleDeleteClick() {
     openDeleteDialog(passedTask);

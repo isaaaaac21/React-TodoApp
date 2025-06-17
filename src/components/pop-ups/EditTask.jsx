@@ -1,14 +1,13 @@
 import * as React from "react";
 import Box from "@mui/material/Box";
 import { Button, Stack, TextField } from "@mui/material";
-import "./edit.css";
 import { useState, useContext } from "react";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
-import { SnackBarContext } from "../../../contexts/SnackBarContext";
+import { SnackBarContext } from "../../contexts/SnackBarContext";
 
 export default function EditTask({
   passedTask,

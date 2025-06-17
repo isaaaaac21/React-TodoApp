@@ -2,13 +2,13 @@ import { FilterContext } from "../../../contexts/FilterContext";
 import { Task } from "../Task/Task";
 import { useContext, useMemo, useState } from "react";
 import "./Tasks.css";
-import DeleteTask from "../../pop-ups/delete pop-up/DeleteTask";
-import EditTask from "../../pop-ups/Edit pop-up/EditTask";
+import DeleteTask from "../../pop-ups/DeleteTask";
+import EditTask from "../../pop-ups/EditTask";
 import { SnackBarContext } from "../../../contexts/SnackBarContext";
-import { ReducerContext } from "../../../contexts/ReducerContext";
+import { useTodos } from "../../../contexts/ReducerContext";
 
 export function Tasks() {
-  const { myTasksArr, dispatch } = useContext(ReducerContext);
+  const { myTasksArr, dispatch } = useTodos();
   const { tasksFilter } = useContext(FilterContext);
   const [showDelete, setShowDelete] = useState(false);
   const [dialogTask, setDialogTask] = useState(null);

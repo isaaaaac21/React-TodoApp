@@ -1,8 +1,8 @@
 import ToggleButtons from "./ToggleButtons";
 import { Tasks } from "./tasks/Tasks";
 import Container from "@mui/material/Container";
-import { NewTask } from "./NewTask/NewTask";
 import SnackBar from "../pop-ups/SnackBar";
+import { NewTask } from "./Task/NewTask";
 
 export function TodoList() {
   return (

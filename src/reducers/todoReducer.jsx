@@ -6,7 +6,6 @@ function handleAddNewTodo(tasksArr, newTask) {
 }
 
 function handleEditTodo(taskArr, editedTask) {
-  console.log(editedTask);
   const newArr = taskArr.map((currTask) => {
     if (currTask.id === editedTask.id) {
       return {

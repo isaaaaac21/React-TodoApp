@@ -5,7 +5,7 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle"; // Fixed import path
-import { SnackBarContext } from "../../../contexts/SnackBarContext";
+import { SnackBarContext } from "../../contexts/SnackBarContext";
 
 export default function DeleteTask({ open, handleDelete, closeDialog }) {
   return (

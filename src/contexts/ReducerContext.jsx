@@ -1,4 +1,4 @@
-import { createContext, useReducer, useEffect } from "react";
+import { createContext, useReducer, useEffect, useContext } from "react";
 import { todoReducer } from "../reducers/todoReducer";
 const tasks = [
   {
@@ -35,7 +35,7 @@ const tasks = [
     isDone: false,
   },
 ];
-export const ReducerContext = createContext({});
+const ReducerContext = createContext({});
 
 export const ReducerProvider = ({ children }) => {
   const [myTasksArr, dispatch] = useReducer(todoReducer, tasks);
@@ -55,4 +55,8 @@ export const ReducerProvider = ({ children }) => {
       {children}
     </ReducerContext.Provider>
   );
+};
+
+export const useTodos = () => {
+  return useContext(ReducerContext);
 };
