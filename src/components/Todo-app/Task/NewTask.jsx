@@ -32,23 +32,29 @@ export function NewTask() {
     <Box
       sx={{
         display: "flex",
+        flexDirection: "row",
+
         gap: 2,
         width: "100%",
-        maxWidth: "500px",
         margin: "0 auto",
+        alignItems: "center", // Align items vertically
       }}
     >
       <TextField
         id="outlined-required"
         placeholder="Task Title"
-        sx={{ flex: 2 }}
+        sx={{ flex: 2, width: "100%" }}
         size="small"
         value={taskName}
         onChange={(e) => setTaskName(e.target.value)}
       />
       <Button
         variant="contained"
-        sx={{ flex: 1 }}
+        sx={{
+          flex: "0 0 auto", // Don't grow or shrink, use natural size
+          minWidth: "80px", // Minimum button width
+          whiteSpace: "nowrap", // Prevent text wrapping
+        }}
         onClick={handleAddClick}
         disabled={taskName.trim() === ""}
       >

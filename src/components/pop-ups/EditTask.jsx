@@ -17,7 +17,17 @@ export default function EditTask({
 }) {
   const [editedTask, setEditedTask] = useState(passedTask);
   return (
-    <Dialog open={open} onClose={closeDialog} maxWidth="xs">
+    <Dialog
+      open={open}
+      onClose={closeDialog}
+      maxWidth="xs"
+      sx={{
+        "& .MuiDialog-paper": {
+          margin: { sm: "20px", xs: "32px" },
+          width: { sm: "calc(100% - 40px)", xs: "auto" },
+        },
+      }}
+    >
       <DialogTitle>Edit Task</DialogTitle>
       <DialogContent>
         <TextField

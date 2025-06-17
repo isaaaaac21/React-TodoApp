@@ -1,8 +1,9 @@
 .tasks-list {
   overflow-y: auto;
-  max-height: 500px; /* Adjust this value as needed */
-  padding: 0 1rem;
-
+  margin: 20px auto 10px;
+  height: 350px;
+  overflow-y: scroll;
+  width: 100%;
   /* Webkit browsers (Chrome, Safari, etc.) */
   &::-webkit-scrollbar {
     width: 8px;
@@ -25,4 +26,9 @@
   /* Firefox */
   scrollbar-width: thin;
   scrollbar-color: #64b5f6 #f1f1f1;
+}
+@media (max-width: 600px) {
+  .tasks-list {
+    margin: 10px auto;
+  }
 }

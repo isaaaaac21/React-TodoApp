@@ -73,15 +73,7 @@ export function Tasks() {
 
   return (
     <>
-      <ul
-        className="tasks-list"
-        style={{
-          margin: "30px auto",
-          height: "350px",
-          overflowY: "scroll",
-          width: "500px",
-        }}
-      >
+      <ul className="tasks-list" style={{}}>
         {myUlTasks}
       </ul>
       <DeleteTask

@@ -1,6 +1,6 @@
 import Box from "@mui/material/Box";
 import { Grid, Typography } from "@mui/material";
-import Stack from "@mui/material/Stack"; // Fixed import
+import Stack from "@mui/material/Stack";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import CheckOutlinedIcon from "@mui/icons-material/CheckOutlined";
@@ -41,9 +41,22 @@ export function Task({ passedTask, openDeleteDialog, openEditDialog }) {
         className="grid-task"
         container
         spacing={2}
-        sx={{ placeItems: "center" }}
+        sx={{
+          justifyContent: { xs: "", sm: "space-between" },
+          alignItems: "center",
+          flexDirection: { xs: "column", sm: "row" },
+          gap: { xs: 1, sm: 2 },
+        }}
       >
-        <Grid size={7} sx={{ textAlign: "left", marginRight: 3 }}>
+        <Grid
+          item
+          className="grid-title"
+          xs={12}
+          sm={8}
+          sx={{
+            textAlign: { xs: "center", sm: "left" },
+          }}
+        >
           <Typography
             variant="h6"
             style={{
@@ -56,32 +69,38 @@ export function Task({ passedTask, openDeleteDialog, openEditDialog }) {
           <Typography variant="subtitle2">{passedTask.details}</Typography>
         </Grid>
 
-        {/* <Grid size={4}> */}
-        <Stack size={1} direction="row" spacing={2}>
-          <IconButton
-            className={"icons" + (passedTask.isDone ? " done" : " hover")}
-            sx={{}}
-            onClick={() => handleDoneClick()}
-            disabled={passedTask.isDone}
-          >
-            <CheckOutlinedIcon color="secondary" />
-          </IconButton>
-          <IconButton
-            className={`icons ${!passedTask.isDone ? "hover" : ""}`}
-            sx={{}}
-            onClick={handleEditClick}
-            disabled={passedTask.isDone}
-          >
-            <EditOutlinedIcon color="info" />
-          </IconButton>
-          <IconButton
-            className={`icons ${!passedTask.isDone ? "hover" : ""}`}
-            sx={{}}
-            onClick={() => handleDeleteClick()}
-          >
-            <DeleteOutlineOutlinedIcon color="primary" />
-          </IconButton>
-        </Stack>
+        <Grid
+          item
+          xs={12}
+          sm={4}
+          sx={{
+            display: "flex",
+            justifyContent: { xs: "center", sm: "flex-end" },
+          }}
+        >
+          <Stack direction="row" spacing={2}>
+            <IconButton
+              className={"icons" + (passedTask.isDone ? " done" : " hover")}
+              onClick={() => handleDoneClick()}
+              disabled={passedTask.isDone}
+            >
+              <CheckOutlinedIcon color="secondary" />
+            </IconButton>
+            <IconButton
+              className={`icons ${!passedTask.isDone ? "hover" : ""}`}
+              onClick={handleEditClick}
+              disabled={passedTask.isDone}
+            >
+              <EditOutlinedIcon color="info" />
+            </IconButton>
+            <IconButton
+              className={`icons ${!passedTask.isDone ? "hover" : ""}`}
+              onClick={() => handleDeleteClick()}
+            >
+              <DeleteOutlineOutlinedIcon color="primary" />
+            </IconButton>
+          </Stack>
+        </Grid>
       </Grid>
     </Box>
   );

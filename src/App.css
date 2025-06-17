@@ -1,11 +1,18 @@
 .container {
   background-color: white;
-  padding: 30px;
+  padding: 20px;
   border-radius: 10px;
-  min-height: 600px;
   text-align: center;
+  margin: 20px;
+  width: 50%;
 }
-
+@media screen and (max-width: 600px) {
+  .container {
+    padding: 15px;
+    margin: 10px;
+    width: 80% !important;
+  }
+}
 @font-face {
   font-family: Work-sans;
   src: url("./public/fonts/WorkSans-Black.ttf");
