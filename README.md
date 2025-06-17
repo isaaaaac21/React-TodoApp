@@ -37,7 +37,7 @@ A modern task management application built with React and Material-UI that demon
 ## Installation
 
 ```bash
-git clone <repository-url>
+git clone <https://github.com/isaaaaac21/React-TodoApp.git>
 cd React-TodoApp
 npm install
 ```
