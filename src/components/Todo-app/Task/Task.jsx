@@ -46,6 +46,7 @@ export function Task({ passedTask, openDeleteDialog, openEditDialog }) {
           alignItems: "center",
           flexDirection: { xs: "column", sm: "row" },
           gap: { xs: 1, sm: 2 },
+          flexWrap: "nowrap", // Prevents container from wrapping
         }}
       >
         <Grid
@@ -55,6 +56,9 @@ export function Task({ passedTask, openDeleteDialog, openEditDialog }) {
           sm={8}
           sx={{
             textAlign: { xs: "center", sm: "left" },
+            minWidth: 0, // Allows text to wrap within Grid item
+            wordWrap: "break-word",
+            overflow: "hidden",
           }}
         >
           <Typography
@@ -62,11 +66,25 @@ export function Task({ passedTask, openDeleteDialog, openEditDialog }) {
             style={{
               fontFamily: "Work-sans",
               textDecoration: passedTask.isDone ? "line-through" : "",
+              wordWrap: "break-word",
+              overflow: "hidden",
             }}
           >
             {passedTask.title}
           </Typography>
-          <Typography variant="subtitle2">{passedTask.details}</Typography>
+          <Typography
+            variant="subtitle2"
+            sx={{
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+              display: "-webkit-box",
+              WebkitLineClamp: 2,
+              WebkitBoxOrient: "vertical",
+              wordWrap: "break-word",
+            }}
+          >
+            {passedTask.details}
+          </Typography>
         </Grid>
 
         <Grid
@@ -76,6 +94,7 @@ export function Task({ passedTask, openDeleteDialog, openEditDialog }) {
           sx={{
             display: "flex",
             justifyContent: { xs: "center", sm: "flex-end" },
+            flexShrink: 0, // Prevents buttons from shrinking
           }}
         >
           <Stack direction="row" spacing={2}>
